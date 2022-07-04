@@ -1,0 +1,39 @@
+{
+    "name": "exercises-scrapper-management",
+    "private": true,
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "vite",
+        "build": "tsc && vite build",
+        "preview": "vite preview",
+        "format": "prettier .  --write"
+    },
+    "dependencies": {
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0"
+    },
+    "devDependencies": {
+        "@types/react": "^18.0.0",
+        "@types/react-dom": "^18.0.0",
+        "@vitejs/plugin-react": "^1.3.0",
+        "prettier": "2.7.1",
+        "typescript": "^4.6.3",
+        "vite": "^2.9.9"
+    },
+    "description": "scrapper management",
+    "main": "dist/index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Beriu/scrapemaster-9000.git"
+    },
+    "keywords": [
+        "scrapper",
+        "management"
+    ],
+    "author": "Tiberiu Rosu",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Beriu/scrapemaster-9000/issues"
+    },
+    "homepage": "https://github.com/Beriu/scrapemaster-9000#readme"
+}
