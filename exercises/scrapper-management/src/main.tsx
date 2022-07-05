@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AdminLayout from './layouts/AdminLayout';
-import Index from './views/Index';
+import ScrapperResults from './views/ScrapperResults';
 import Scrappers from './views/Scrappers';
 import ScrapperTargets from './views/ScrapperTargets';
 
@@ -13,12 +13,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         <BrowserRouter>
             <Routes>
                 <Route element={<AdminLayout />}>
-                    <Route path="/" element={<Index />} />
-                    <Route path="/scrappers" element={<Scrappers />} />
-                    <Route
-                        path="/scrapper-targets"
-                        element={<ScrapperTargets />}
-                    />
+                    <Route path="/" element={<Scrappers />} />
+                    <Route path="/scrapper-targets" element={<ScrapperTargets />} />
+                    <Route path="/scrapper-results" element={<ScrapperResults />} />
                 </Route>
             </Routes>
         </BrowserRouter>

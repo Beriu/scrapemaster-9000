@@ -30,7 +30,8 @@ const dummyScrappers: Scrapper[] = [
 ];
 
 const fakeCall = <T>(payload: T): Promise<T> => {
-    return new Promise(resolve => setTimeout(() => resolve(payload), 2000));
+    const dereference = JSON.parse(JSON.stringify(payload));
+    return new Promise(resolve => setTimeout(() => resolve(dereference), 1000));
 };
 
 
@@ -41,6 +42,17 @@ export const getScrappers = (): Promise<Scrapper[]> => {
 export const findScrapper = (id: string): Promise<Scrapper | undefined> => {
     const found = dummyScrappers.find(scrp => scrp.id === id);
     return fakeCall(found);
+};
+
+export const createScrapper = (name?: string): Promise<Scrapper> => {
+    const scrapper: Scrapper = {
+        id: fakeId(),
+        name: "FreshNewWhip",
+        status: ScrapperStatus.NEW,
+        createdAt: new Date(),
+    };
+    dummyScrappers.push(scrapper);
+    return fakeCall(scrapper);
 };
 
 export const deleteScrapper = (id: string): Promise<Scrapper | undefined> => {

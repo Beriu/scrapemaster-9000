@@ -1,18 +1,22 @@
 import { FunctionComponent, useEffect, useState } from 'react';
-import { getScrappers, deleteScrapper, updateScrapperStatus } from '../repositories/ScrappersRepository';
+import { getScrappers, deleteScrapper, updateScrapperStatus, createScrapper } from '../repositories/ScrappersRepository';
 import ScrapperComponent from '../components/Scrapper';
 import { Scrapper, ScrapperStatus } from '../types';
+import { useOutletContext } from 'react-router-dom';
+import { PlusIcon } from '@heroicons/react/outline';
 
 const Scrappers: FunctionComponent = () => {
 
+    const { isLoading, setLoading } = useOutletContext<{ isLoading: boolean, setLoading: (v: boolean) => void }>();
+
     const [scrappers, setScrappers] = useState<Scrapper[]>([]);
-    const [loading, setLoading] = useState(false);
     const [error, setError] = useState<null | string>(null);
+
 
     const fetchScrappers = async () => {
         try {
             setLoading(true);
-            setScrappers(await getScrappers())
+            setScrappers(await getScrappers());
         }catch(error: any) {
             setError(error?.message);
         }finally{
@@ -21,23 +25,49 @@ const Scrappers: FunctionComponent = () => {
     };
 
     const deleteScrapperWrapper = (scrapper: Scrapper) => {
-        return () => {
-            deleteScrapper(scrapper.id);
-            fetchScrappers();
-        }
+        return async () => {
+            try {
+                setLoading(true);
+                const deleted = await deleteScrapper(scrapper.id);
+                if(deleted) {
+                    const newCopy = scrappers.filter(scrp => scrp.id !== deleted.id);
+                    setScrappers(newCopy);
+                }
+            }catch(error: any) {
+                setError(error?.message);
+            }finally{
+                setLoading(false);
+            }
+        };
     };
 
-    const startScrapperWrapper = (scrapper: Scrapper) => {
-        return () => {
-            updateScrapperStatus(scrapper.id, ScrapperStatus.IDDLE);
-            fetchScrappers();
-        }
+    const updateScrapperStatusWrapper = (scrapper: Scrapper, status: ScrapperStatus) => {
+        return async () => {
+            try {
+                setLoading(true);
+                const updated = await updateScrapperStatus(scrapper.id, status);
+                if(updated) {
+                    const oldIndex = scrappers.indexOf(scrapper);
+                    scrappers[oldIndex] = updated;
+                    setScrappers([...scrappers]);
+                }
+            }catch(error: any) {
+                setError(error?.message);
+            }finally{
+                setLoading(false);
+            }
+        };
     };
 
-    const stopScrapperWrapper = (scrapper: Scrapper) => {
-        return () => {
-            updateScrapperStatus(scrapper.id, ScrapperStatus.OFFLINE);
-            fetchScrappers();
+    const createNewScrapper = async () => {
+        try {
+            setLoading(true);
+            const newScrp = await createScrapper();
+            setScrappers([...scrappers, newScrp]);
+        }catch(error: any) {
+            setError(error?.message);
+        }finally{
+            setLoading(false);
         }
     };
 
@@ -49,32 +79,31 @@ const Scrappers: FunctionComponent = () => {
         return <div>Error: {error}</div>
     }
 
-    if(loading) {
-        return (
-        <div className='flex w-full justify-between'>
-            <span>Loading Scrappers...</span>
-        </div>
-        );
-    }
-
-    if(scrappers.length <= 0) {
-        return <div>No scrappers.</div>
-    }
-
     return (
-        <div className='w-1/2'>
-            { 
-                scrappers.map(s => (
-                    <ScrapperComponent
-                        retireHandler={deleteScrapperWrapper(s)}
-                        startHandler={startScrapperWrapper(s)}
-                        stopHandler={stopScrapperWrapper(s)}
-                        key={s.id} 
-                        scrapper={s}
-                    />
-                )) 
-            }
-        </div>
+        <>
+            <button
+                disabled={isLoading}
+                className='bg-white hover:bg-opacity-70 mb-2 text-black py-2 px-4 rounded text-center' 
+                onClick={createNewScrapper}>
+                <PlusIcon className='h-4 w-4 mr-2 inline-block' />
+                Create new Scrapper
+            </button>
+            <div className='w-1/2'>
+                {
+                    (!isLoading && scrappers.length <= 0)
+                    ? <div className='text-white'>No scrappers.</div>
+                    : scrappers.map(s => (
+                        <ScrapperComponent
+                            retireHandler={deleteScrapperWrapper(s)}
+                            startHandler={updateScrapperStatusWrapper(s, ScrapperStatus.IDDLE)}
+                            stopHandler={updateScrapperStatusWrapper(s, ScrapperStatus.OFFLINE)}
+                            key={s.id} 
+                            scrapper={s}
+                        />
+                    )) 
+                }
+            </div>
+        </>
     );
 };
 
