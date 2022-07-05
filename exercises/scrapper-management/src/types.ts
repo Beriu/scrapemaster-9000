@@ -17,11 +17,17 @@ export interface Scrapper {
     createdAt: Date;
 }
 
+export interface PropertyTarget {
+    id: string;
+    label: string;
+    selector: string;
+}
+
 export interface ScrapperTarget {
     id: string;
     name: string;
     url: string;
-    targets: Map<string, string>;
+    targets: PropertyTarget[];
     options: ScrapperOptions;
 }
 

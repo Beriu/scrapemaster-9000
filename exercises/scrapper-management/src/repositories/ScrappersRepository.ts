@@ -1,6 +1,6 @@
 import { Scrapper, ScrapperStatus } from "../types";
+import { fakeId, fakeCall } from "./utils";
 
-const fakeId = () => Math.random().toString();
 
 const dummyScrappers: Scrapper[] = [
     {
@@ -11,7 +11,7 @@ const dummyScrappers: Scrapper[] = [
     },
     {
         id: fakeId(),
-        name: "RamajanScrapperooni",
+        name: "WakeAndScrape",
         status: ScrapperStatus.OFFLINE,
         createdAt: new Date()
     },
@@ -28,11 +28,6 @@ const dummyScrappers: Scrapper[] = [
         createdAt: new Date()
     }
 ];
-
-const fakeCall = <T>(payload: T): Promise<T> => {
-    const dereference = JSON.parse(JSON.stringify(payload));
-    return new Promise(resolve => setTimeout(() => resolve(dereference), 1000));
-};
 
 
 export const getScrappers = (): Promise<Scrapper[]> => {

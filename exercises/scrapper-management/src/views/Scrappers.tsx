@@ -3,7 +3,7 @@ import { getScrappers, deleteScrapper, updateScrapperStatus, createScrapper } fr
 import ScrapperComponent from '../components/Scrapper';
 import { Scrapper, ScrapperStatus } from '../types';
 import { useOutletContext } from 'react-router-dom';
-import { PlusIcon } from '@heroicons/react/outline';
+import AddButton from '../components/AddButton';
 
 const Scrappers: FunctionComponent = () => {
 
@@ -12,11 +12,10 @@ const Scrappers: FunctionComponent = () => {
     const [scrappers, setScrappers] = useState<Scrapper[]>([]);
     const [error, setError] = useState<null | string>(null);
 
-
-    const fetchScrappers = async () => {
+    const asyncAction = async (cb: () => any): Promise<void> => {
         try {
             setLoading(true);
-            setScrappers(await getScrappers());
+            await cb();
         }catch(error: any) {
             setError(error?.message);
         }finally{
@@ -24,21 +23,18 @@ const Scrappers: FunctionComponent = () => {
         }
     };
 
+    const fetchScrappers = () => {
+        asyncAction(async () => setScrappers(await getScrappers()));
+    };
+
     const deleteScrapperWrapper = (scrapper: Scrapper) => {
-        return async () => {
-            try {
-                setLoading(true);
-                const deleted = await deleteScrapper(scrapper.id);
-                if(deleted) {
-                    const newCopy = scrappers.filter(scrp => scrp.id !== deleted.id);
-                    setScrappers(newCopy);
-                }
-            }catch(error: any) {
-                setError(error?.message);
-            }finally{
-                setLoading(false);
+        return () => asyncAction(async () => {
+            const deleted = await deleteScrapper(scrapper.id);
+            if(deleted) {
+                const newCopy = scrappers.filter(scrp => scrp.id !== deleted.id);
+                setScrappers(newCopy);
             }
-        };
+        });
     };
 
     const updateScrapperStatusWrapper = (scrapper: Scrapper, status: ScrapperStatus) => {
@@ -81,13 +77,11 @@ const Scrappers: FunctionComponent = () => {
 
     return (
         <>
-            <button
-                disabled={isLoading}
-                className='bg-white hover:bg-opacity-70 mb-2 text-black py-2 px-4 rounded text-center' 
-                onClick={createNewScrapper}>
-                <PlusIcon className='h-4 w-4 mr-2 inline-block' />
-                Create new Scrapper
-            </button>
+            <AddButton 
+                isDisabled={isLoading}
+                onClick={createNewScrapper}
+                text="Create new Scrapper"
+            />
             <div className='w-1/2'>
                 {
                     (!isLoading && scrappers.length <= 0)
