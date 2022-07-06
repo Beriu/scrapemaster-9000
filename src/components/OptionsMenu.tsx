@@ -39,7 +39,7 @@ const OptionsMenu: FunctionComponent<{
                                 <Menu.Item>
                                     <button
                                         onClick={item.clickHandler}
-                                        className="text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm"
+                                        className="text-gray-900 group flex w-full items-center rounded-md px-2 py-2 text-sm text-ellipsis"
                                     >
                                         {item.label}
                                     </button>

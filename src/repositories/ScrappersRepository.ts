@@ -12,6 +12,8 @@ const dummyScrappers: Scrapper[] = Array(5)
     .fill(null)
     .map(() => generate());
 
+export const initialScrappers = JSON.parse(JSON.stringify(dummyScrappers)) as Scrapper[];
+
 export const getScrappers = (): Promise<Scrapper[]> => {
     return fakeCall(dummyScrappers);
 };

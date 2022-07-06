@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom';
 import Navigation, { NavigationItem } from '../components/Navigation';
 import LoadingBar from '../components/LoadingBar';
 import { Scrapper } from '../types';
+import { initialScrappers } from '../repositories/ScrappersRepository';
 
 const AdminLayout: FunctionComponent<{}> = function () {
     const layoutStyle = {
@@ -13,6 +14,9 @@ const AdminLayout: FunctionComponent<{}> = function () {
 
     const [isLoading, setLoading] = useState(false);
     const [scrappers, setScrappers] = useState<Scrapper[]>([]);
+
+    /** prevents a demo bug */
+    useEffect(() => setScrappers(initialScrappers), []);
 
     const navItems: NavigationItem[] = [
         {
