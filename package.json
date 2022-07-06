@@ -6,7 +6,7 @@
         "dev": "vite",
         "build": "tsc && vite build",
         "preview": "vite preview",
-        "format": "prettier . --write"
+        "format": "prettier src/ --write"
     },
     "dependencies": {
         "@headlessui/react": "^1.6.5",

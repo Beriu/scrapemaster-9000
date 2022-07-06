@@ -5,8 +5,8 @@ import {
     fakeLorem,
     fakeUrl,
     randomize,
-    fakeResult,
-    fakeSelector,
+    fakeLabel,
+    fakeCssSelector,
 } from './utils';
 
 const generate = () => ({
@@ -20,13 +20,13 @@ const generate = () => ({
     targets: [
         {
             id: fakeId(),
-            label: fakeSelector(),
-            selector: fakeResult(),
+            label: fakeLabel(),
+            selector: fakeCssSelector(),
         },
         {
             id: fakeId(),
-            label: fakeSelector(),
-            selector: fakeResult(),
+            label: fakeLabel(),
+            selector: fakeCssSelector(),
         },
     ],
 });

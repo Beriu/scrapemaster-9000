@@ -12,13 +12,22 @@ export const fakeName = () =>
 
 export const fakeResult = () => faker.lorem.sentence();
 
-export const fakeSelector = () => faker.word.noun();
+export const fakeLabel = () => faker.word.noun();
 
 export const randomize = <T>(v: T[]): T => faker.helpers.arrayElement(v);
 
 export const fakeLorem = () => faker.lorem.words();
 
 export const fakeUrl = () => faker.internet.url();
+
+export const fakeCssSelector = () => {
+    const selectors = ['p', 'span', 'div', 'h3', 'h2', 'section'];
+    const modifiers = ['>', ':', 'nth()'];
+    const classes = ['.title', '.name', '.header'];
+    return `${randomize(selectors)} ${randomize(modifiers)} ${randomize(
+        classes
+    )}`;
+};
 
 export const fakeCall = <T>(payload: T): Promise<T> => {
     const dereference = JSON.parse(JSON.stringify(payload));

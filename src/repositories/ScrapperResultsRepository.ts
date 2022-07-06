@@ -10,7 +10,7 @@ import {
     fakeTime,
     fakeDate,
     fakeResult,
-    fakeSelector,
+    fakeLabel,
     randomize,
 } from './utils';
 
@@ -25,12 +25,12 @@ const generate = () => ({
     values: [
         {
             id: fakeId(),
-            label: fakeSelector(),
+            label: fakeLabel(),
             selector: fakeResult(),
         },
         {
             id: fakeId(),
-            label: fakeSelector(),
+            label: fakeLabel(),
             selector: fakeResult(),
         },
     ],
