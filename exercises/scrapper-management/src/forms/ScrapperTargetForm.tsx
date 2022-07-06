@@ -1,4 +1,4 @@
-import { FunctionComponent, useId, useState } from 'react';
+import { FunctionComponent, SyntheticEvent, useId, useState } from 'react';
 import { ScrapperTarget, PropertyTarget } from '../types';
 import InputField from '../components/InputField';
 import CheckboxField from '../components/CheckboxField';
@@ -6,9 +6,14 @@ import { useOutletContext } from 'react-router-dom';
 import GenericButton from '../components/GenericButton';
 import TargetField from '../components/TargetField';
 import AddButton from '../components/AddButton';
+import { fakeId } from '../repositories/utils';
 
+interface Props {
+    target?: ScrapperTarget;
+    onSubmit: (st: ScrapperTarget) => void
+}
 
-const ScrapperTargetForm: FunctionComponent<{ target?: ScrapperTarget }> = function ({ target }) {
+const ScrapperTargetForm: FunctionComponent<Props> = function ({ target, onSubmit }) {
 
     const generateId = (prefix: string) => `${prefix}_${useId()}`;
 
@@ -29,10 +34,23 @@ const ScrapperTargetForm: FunctionComponent<{ target?: ScrapperTarget }> = funct
         setTargets([...targets]);
     };
 
-    const addTarget = (e: any) => {
+    const addTarget = () => {
         const newTarget = { id: Math.random().toString(), label: "", selector: "" };
         setTargets([...targets, newTarget]);
     }
+
+    const submitForm = () => {
+        onSubmit({
+            id: fakeId(),
+            name,
+            url,
+            options: {
+                allTargetsRequired: allRequired,
+                multipleValues: multiple,
+            },
+            targets
+        });
+    };
 
     return (
         <form className='flex flex-col gap-3' onSubmit={(e) => e.preventDefault()}>
@@ -76,9 +94,9 @@ const ScrapperTargetForm: FunctionComponent<{ target?: ScrapperTarget }> = funct
                 })
             }
 
-            <AddButton onClick={addTarget} text='Add target field'/>
+            <AddButton isDisabled={false} onClick={addTarget} text='Add target field'/>
 
-            <GenericButton twBg='bg-slate-300' isDisabled={isLoading} text="Create" onClick={() => {}} />
+            <GenericButton twBg='bg-slate-300' isDisabled={isLoading} text="Create" onClick={submitForm} />
         </form>
     );
 };

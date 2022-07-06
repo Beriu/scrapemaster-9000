@@ -45,3 +45,8 @@ export interface ScrappingResult {
     values: Map<string, string | string[]>
 }
 
+export interface OutletContext {
+    isLoading: boolean; 
+    setLoading: (v: boolean) => void
+}
+

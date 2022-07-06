@@ -22,3 +22,8 @@ const dummyTargets: ScrapperTarget[] = [
 ];
 
 export const getScrapperTargets = (): Promise<ScrapperTarget[]> => fakeCall(dummyTargets);
+
+export const createScrapperTarget = (st: ScrapperTarget): Promise<ScrapperTarget> => {
+    dummyTargets.push(st);
+    return fakeCall(st);
+}; 

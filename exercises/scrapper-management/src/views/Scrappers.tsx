@@ -1,13 +1,13 @@
 import { FunctionComponent, useEffect, useState } from 'react';
 import { getScrappers, deleteScrapper, updateScrapperStatus, createScrapper } from '../repositories/ScrappersRepository';
 import ScrapperComponent from '../components/Scrapper';
-import { Scrapper, ScrapperStatus } from '../types';
+import { OutletContext, Scrapper, ScrapperStatus } from '../types';
 import { useOutletContext } from 'react-router-dom';
 import AddButton from '../components/AddButton';
 
 const Scrappers: FunctionComponent = () => {
 
-    const { isLoading, setLoading } = useOutletContext<{ isLoading: boolean, setLoading: (v: boolean) => void }>();
+    const { isLoading, setLoading } = useOutletContext<OutletContext>();
 
     const [scrappers, setScrappers] = useState<Scrapper[]>([]);
     const [error, setError] = useState<null | string>(null);
