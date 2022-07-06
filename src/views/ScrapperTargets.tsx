@@ -57,7 +57,7 @@ const ScrapperTargets: FunctionComponent<{}> = function () {
                         key={t.id}
                         target={t}
                     />
-                ))}
+                )).reverse()}
             </div>
         </>
     );

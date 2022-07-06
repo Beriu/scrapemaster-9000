@@ -23,7 +23,7 @@ const ScrapperResults: FunctionComponent<{}> = function () {
         <div className="grid grid-cols-4 gap-2">
             {results.map((r, index) => (
                 <ScrappingResultComponent key={index} result={r} />
-            ))}
+            )).reverse()}
         </div>
     );
 };

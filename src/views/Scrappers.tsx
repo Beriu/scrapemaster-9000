@@ -111,7 +111,7 @@ const Scrappers: FunctionComponent = () => {
                             scrapper={s}
                         />
                     ))
-                )}
+                ).reverse()}
             </div>
         </>
     );
