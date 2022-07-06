@@ -25,17 +25,17 @@ const ScrapperComponent: FunctionComponent<ScrapperComponentProps> = function (
     const generateOptions = (p: any): OptionsMenuItem[] => {
         return [
             {
-                label: "Delete",
-                clickHandler: retireHandler
-            },
-            {
                 label: "Start",
                 clickHandler: startHandler
             },
             {
                 label: "Stop",
                 clickHandler: stopHandler
-            }
+            },
+            {
+                label: "Delete",
+                clickHandler: retireHandler
+            },
         ];
     };
 

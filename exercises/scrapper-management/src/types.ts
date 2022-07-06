@@ -42,11 +42,13 @@ export interface ScrappingResult {
     time: number;
     ranAt: Date;
     type: ScrappingResultType;
-    values: Map<string, string | string[]>
+    values: PropertyTarget[];
 }
 
 export interface OutletContext {
     isLoading: boolean; 
     setLoading: (v: boolean) => void
+    scrappers: Scrapper[];
+    setScrappers: (s: Scrapper[]) => void
 }
 

@@ -7,9 +7,8 @@ import AddButton from '../components/AddButton';
 
 const Scrappers: FunctionComponent = () => {
 
-    const { isLoading, setLoading } = useOutletContext<OutletContext>();
+    const { isLoading, setLoading, scrappers, setScrappers } = useOutletContext<OutletContext>();
 
-    const [scrappers, setScrappers] = useState<Scrapper[]>([]);
     const [error, setError] = useState<null | string>(null);
 
     const asyncAction = async (cb: () => any): Promise<void> => {

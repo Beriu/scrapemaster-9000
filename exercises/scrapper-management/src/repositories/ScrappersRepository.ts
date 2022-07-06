@@ -1,33 +1,15 @@
 import { Scrapper, ScrapperStatus } from "../types";
-import { fakeId, fakeCall } from "./utils";
+import { fakeId, fakeCall, fakeDate, fakeName, randomize } from "./utils";
 
 
-const dummyScrappers: Scrapper[] = [
-    {
-        id: fakeId(),
-        name: "SomeCoolScrapper3000",
-        status: ScrapperStatus.NEW,
-        createdAt: new Date()
-    },
-    {
-        id: fakeId(),
-        name: "WakeAndScrape",
-        status: ScrapperStatus.OFFLINE,
-        createdAt: new Date()
-    },
-    {
-        id: fakeId(),
-        name: "MaxScrappings29",
-        status: ScrapperStatus.IDDLE,
-        createdAt: new Date()
-    },
-    {
-        id: fakeId(),
-        name: "YaBoyScrappy",
-        status: ScrapperStatus.RUNNING,
-        createdAt: new Date()
-    }
-];
+const generate = () => ({
+    id: fakeId(),
+    name: fakeName(),
+    status: randomize(Object.values(ScrapperStatus)),
+    createdAt: fakeDate()
+});
+
+const dummyScrappers: Scrapper[] = Array(5).fill(null).map(() => generate());
 
 
 export const getScrappers = (): Promise<Scrapper[]> => {
@@ -42,9 +24,9 @@ export const findScrapper = (id: string): Promise<Scrapper | undefined> => {
 export const createScrapper = (name?: string): Promise<Scrapper> => {
     const scrapper: Scrapper = {
         id: fakeId(),
-        name: "FreshNewWhip",
+        name: fakeName(),
         status: ScrapperStatus.NEW,
-        createdAt: new Date(),
+        createdAt: fakeDate(),
     };
     dummyScrappers.push(scrapper);
     return fakeCall(scrapper);

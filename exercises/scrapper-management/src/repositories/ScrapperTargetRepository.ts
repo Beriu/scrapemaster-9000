@@ -1,25 +1,29 @@
 import { ScrapperTarget } from "../types";
-import { fakeId, fakeCall } from "./utils";
+import { fakeId, fakeCall, fakeLorem, fakeUrl, randomize, fakeResult, fakeSelector } from "./utils";
 
-
-const dummyTargets: ScrapperTarget[] = [
-    {
-        id: fakeId(),
-        name: "Title on Example",
-        url: "example.com",
-        options: {
-            allTargetsRequired: false,
-            multipleValues: false,
+const generate = () => ({
+    id: fakeId(),
+    name: fakeLorem(),
+    url: fakeUrl(),
+    options: {
+        allTargetsRequired: randomize([true, false]),
+        multipleValues: randomize([true, false]),
+    },
+    targets: [
+        {
+            id: fakeId(),
+            label: fakeSelector(),
+            selector: fakeResult()
         },
-        targets: [
-            {
-                id: fakeId(),
-                label: "title",
-                selector: "p>h4.title"
-            }
-        ]
-    }
-];
+        {
+            id: fakeId(),
+            label: fakeSelector(),
+            selector: fakeResult()
+        },
+    ]
+});
+
+const dummyTargets: ScrapperTarget[] = Array(5).fill(null).map(() => generate());
 
 export const getScrapperTargets = (): Promise<ScrapperTarget[]> => fakeCall(dummyTargets);
 

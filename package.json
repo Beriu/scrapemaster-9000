@@ -14,5 +14,8 @@
     "data"
   ],
   "author": "Tiberiu Rosu",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^7.3.0"
+  }
 }

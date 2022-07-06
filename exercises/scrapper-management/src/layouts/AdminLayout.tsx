@@ -1,7 +1,8 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Navigation, { NavigationItem } from '../components/Navigation';
 import LoadingBar from '../components/LoadingBar';
+import { Scrapper } from '../types';
 
 const AdminLayout: FunctionComponent<{}> = function () {
     
@@ -12,6 +13,8 @@ const AdminLayout: FunctionComponent<{}> = function () {
     };
 
     const [isLoading, setLoading] = useState(false);
+    const [scrappers, setScrappers] = useState<Scrapper[]>([]);
+
 
     const navItems: NavigationItem[] = [
         {
@@ -36,7 +39,9 @@ const AdminLayout: FunctionComponent<{}> = function () {
                     <Navigation items={navItems} />
 
                     <main>
-                        <Outlet context={{ isLoading, setLoading }} />
+                        <Outlet context={
+                            { isLoading, setLoading, scrappers, setScrappers }
+                        } />
                     </main>
                 </div>
             </div>
