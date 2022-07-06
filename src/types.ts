@@ -2,7 +2,7 @@ export enum ScrapperStatus {
     NEW = 'new',
     OFFLINE = 'offline',
     IDDLE = 'iddle',
-    RUNNING = 'running'
+    RUNNING = 'running',
 }
 
 export interface ScrapperOptions {
@@ -46,9 +46,8 @@ export interface ScrappingResult {
 }
 
 export interface OutletContext {
-    isLoading: boolean; 
-    setLoading: (v: boolean) => void
+    isLoading: boolean;
+    setLoading: (v: boolean) => void;
     scrappers: Scrapper[];
-    setScrappers: (s: Scrapper[]) => void
+    setScrappers: (s: Scrapper[]) => void;
 }
-

@@ -7,14 +7,23 @@ interface FieldProps {
     onChange: (v: any) => void;
 }
 
-const CheckboxField: FunctionComponent<FieldProps> = function ({ label, value, onChange, id }) {
+const CheckboxField: FunctionComponent<FieldProps> = function ({
+    label,
+    value,
+    onChange,
+    id,
+}) {
     return (
         <fieldset>
             <label htmlFor={id} className="text-gray-500 font-bold">
-                <input id={id} value={value} onChange={onChange} className="mr-2 leading-tight" type="checkbox" />
-                <span className="text-md">
-                    { label }
-                </span>
+                <input
+                    id={id}
+                    value={value}
+                    onChange={onChange}
+                    className="mr-2 leading-tight"
+                    type="checkbox"
+                />
+                <span className="text-md">{label}</span>
             </label>
         </fieldset>
     );

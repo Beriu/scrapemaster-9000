@@ -14,8 +14,14 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
             <Routes>
                 <Route element={<AdminLayout />}>
                     <Route path="/" element={<Scrappers />} />
-                    <Route path="/scrapper-targets" element={<ScrapperTargets />} />
-                    <Route path="/scrapper-results" element={<ScrapperResults />} />
+                    <Route
+                        path="/scrapper-targets"
+                        element={<ScrapperTargets />}
+                    />
+                    <Route
+                        path="/scrapper-results"
+                        element={<ScrapperResults />}
+                    />
                 </Route>
             </Routes>
         </BrowserRouter>

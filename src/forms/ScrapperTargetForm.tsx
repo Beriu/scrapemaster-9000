@@ -10,17 +10,19 @@ import { fakeId } from '../repositories/utils';
 
 interface Props {
     target?: ScrapperTarget;
-    onSubmit: (st: ScrapperTarget) => void
+    onSubmit: (st: ScrapperTarget) => void;
 }
 
-const ScrapperTargetForm: FunctionComponent<Props> = function ({ target, onSubmit }) {
-
+const ScrapperTargetForm: FunctionComponent<Props> = function ({
+    target,
+    onSubmit,
+}) {
     const generateId = (prefix: string) => `${prefix}_${useId()}`;
 
     const { isLoading } = useOutletContext<{ isLoading: boolean }>();
 
-    const [name, setName] = useState("");
-    const [url, setUrl] = useState("");
+    const [name, setName] = useState('');
+    const [url, setUrl] = useState('');
 
     const [allRequired, setAllRequired] = useState(false);
     const [multiple, setMultiple] = useState(false);
@@ -28,16 +30,22 @@ const ScrapperTargetForm: FunctionComponent<Props> = function ({ target, onSubmi
     const [targets, setTargets] = useState<PropertyTarget[]>([]);
 
     const setTargetIndividual = (target: PropertyTarget) => {
-        const targeted = targets.find(t => t.id === target.id) as PropertyTarget;
+        const targeted = targets.find(
+            (t) => t.id === target.id
+        ) as PropertyTarget;
         targeted.label = target.label;
         targeted.selector = target.selector;
         setTargets([...targets]);
     };
 
     const addTarget = () => {
-        const newTarget = { id: Math.random().toString(), label: "", selector: "" };
+        const newTarget = {
+            id: Math.random().toString(),
+            label: '',
+            selector: '',
+        };
         setTargets([...targets, newTarget]);
-    }
+    };
 
     const submitForm = () => {
         onSubmit({
@@ -48,55 +56,71 @@ const ScrapperTargetForm: FunctionComponent<Props> = function ({ target, onSubmi
                 allTargetsRequired: allRequired,
                 multipleValues: multiple,
             },
-            targets
+            targets,
         });
     };
 
     return (
-        <form className='flex flex-col gap-3' onSubmit={(e) => e.preventDefault()}>
-            <InputField 
+        <form
+            className="flex flex-col gap-3"
+            onSubmit={(e) => e.preventDefault()}
+        >
+            <InputField
                 id={generateId('name')}
                 label="Name"
-                type='text'
+                type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
 
-            <InputField 
+            <InputField
                 id={generateId('url')}
                 label="Target Url"
-                type='text'
+                type="text"
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
             />
 
-            <CheckboxField 
+            <CheckboxField
                 id={generateId('allRequired')}
                 label="All targets required"
                 value={allRequired}
                 onChange={(e) => setAllRequired(e.target.value)}
             />
 
-            <CheckboxField 
+            <CheckboxField
                 id={generateId('multiple')}
                 label="Multiple Values"
                 value={multiple}
                 onChange={(e) => setMultiple(e.target.value)}
             />
 
-            { 
-                targets.map((target, index) => {
-                    return <TargetField
-                                key={index}
-                                target={{ id: target.id, label: target.label, selector: target.selector }} 
-                                setter={setTargetIndividual}
-                            />
-                })
-            }
+            {targets.map((target, index) => {
+                return (
+                    <TargetField
+                        key={index}
+                        target={{
+                            id: target.id,
+                            label: target.label,
+                            selector: target.selector,
+                        }}
+                        setter={setTargetIndividual}
+                    />
+                );
+            })}
 
-            <AddButton isDisabled={false} onClick={addTarget} text='Add target field'/>
+            <AddButton
+                isDisabled={false}
+                onClick={addTarget}
+                text="Add target field"
+            />
 
-            <GenericButton twBg='bg-slate-300' isDisabled={isLoading} text="Create" onClick={submitForm} />
+            <GenericButton
+                twBg="bg-slate-300"
+                isDisabled={isLoading}
+                text="Create"
+                onClick={submitForm}
+            />
         </form>
     );
 };

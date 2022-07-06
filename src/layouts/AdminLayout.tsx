@@ -5,29 +5,27 @@ import LoadingBar from '../components/LoadingBar';
 import { Scrapper } from '../types';
 
 const AdminLayout: FunctionComponent<{}> = function () {
-    
     const layoutStyle = {
         display: 'grid',
         gridTemplateColumns: 'minmax(200px, 25%) 1fr',
-        gap: '2rem'
+        gap: '2rem',
     };
 
     const [isLoading, setLoading] = useState(false);
     const [scrappers, setScrappers] = useState<Scrapper[]>([]);
 
-
     const navItems: NavigationItem[] = [
         {
-            label: "Scrappers",
-            path: "/"
+            label: 'Scrappers',
+            path: '/',
         },
         {
-            label: "Scrapper Targets",
-            path: "/scrapper-targets"
+            label: 'Scrapper Targets',
+            path: '/scrapper-targets',
         },
         {
-            label: "Scrapper Results",
-            path: "/scrapper-results"
+            label: 'Scrapper Results',
+            path: '/scrapper-results',
         },
     ];
 
@@ -39,9 +37,14 @@ const AdminLayout: FunctionComponent<{}> = function () {
                     <Navigation items={navItems} />
 
                     <main>
-                        <Outlet context={
-                            { isLoading, setLoading, scrappers, setScrappers }
-                        } />
+                        <Outlet
+                            context={{
+                                isLoading,
+                                setLoading,
+                                scrappers,
+                                setScrappers,
+                            }}
+                        />
                     </main>
                 </div>
             </div>

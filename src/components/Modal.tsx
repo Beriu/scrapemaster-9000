@@ -1,6 +1,6 @@
-import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
-import AddButton from './AddButton'
+import { Dialog, Transition } from '@headlessui/react';
+import { Fragment, useState } from 'react';
+import AddButton from './AddButton';
 import { FunctionComponent } from 'react';
 
 interface Props {
@@ -10,14 +10,26 @@ interface Props {
     setIsOpen: (v: boolean) => void;
 }
 
-const Modal: FunctionComponent<Props> = ({ header, isOpen, setIsOpen, children }) => {
-    
+const Modal: FunctionComponent<Props> = ({
+    header,
+    isOpen,
+    setIsOpen,
+    children,
+}) => {
     return (
         <>
-            <AddButton isDisabled={false} onClick={() => setIsOpen(true)} text="Create new Target"/>
+            <AddButton
+                isDisabled={false}
+                onClick={() => setIsOpen(true)}
+                text="Create new Target"
+            />
 
             <Transition appear show={isOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={() => setIsOpen(false)}>
+                <Dialog
+                    as="div"
+                    className="relative z-10"
+                    onClose={() => setIsOpen(false)}
+                >
                     <Transition.Child
                         as={Fragment}
                         enter="ease-out duration-300"
@@ -44,11 +56,12 @@ const Modal: FunctionComponent<Props> = ({ header, isOpen, setIsOpen, children }
                                 <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-lg font-medium leading-6 text-gray-900">
-                                        { header }
+                                        className="text-lg font-medium leading-6 text-gray-900"
+                                    >
+                                        {header}
                                     </Dialog.Title>
 
-                                    { children }
+                                    {children}
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
@@ -56,7 +69,7 @@ const Modal: FunctionComponent<Props> = ({ header, isOpen, setIsOpen, children }
                 </Dialog>
             </Transition>
         </>
-    )
+    );
 };
 
 export default Modal;

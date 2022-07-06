@@ -8,22 +8,30 @@ interface FieldProps {
     onChange: (v: any) => void;
 }
 
-const InputField: FunctionComponent<FieldProps> = function ({ label, value, onChange, id, type }) {
+const InputField: FunctionComponent<FieldProps> = function ({
+    label,
+    value,
+    onChange,
+    id,
+    type,
+}) {
     return (
         <fieldset>
             <label
-                htmlFor={id} 
-                className="block text-gray-700 text-sm font-bold mb-2">
-                { label }
+                htmlFor={id}
+                className="block text-gray-700 text-sm font-bold mb-2"
+            >
+                {label}
             </label>
-            <input 
+            <input
                 id={id}
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 type={type}
                 value={value}
                 onChange={onChange}
-                placeholder={label}/>
-            </fieldset>
+                placeholder={label}
+            />
+        </fieldset>
     );
 };
 
