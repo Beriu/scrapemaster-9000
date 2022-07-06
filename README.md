@@ -29,3 +29,5 @@ The App revolves around 3 concepts:
 -   ScrapperResult (the result of the parsing)
 
 So first we must create a scrapper or start an offline one, then we create a target, use the form to add the field you wish to parse using a css selector and then use the run button to select wich scrapper to use. After that we are automatically redirected to the results page.
+
+> Hint: If you get unlucky with randomizing all scrappers generated will not be eligible to send a Target to them so just create a new one and it will apear in the Target run dropdown 
